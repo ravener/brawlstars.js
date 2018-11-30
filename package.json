@@ -1,0 +1,37 @@
+{
+  "name": "brawlstars",
+  "version": "1.0.0",
+  "description": "API Wrapper for https://brawlapi.cf",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "eslint . && mocha --timeout 0",
+    "docs": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pollen5/brawlstars.js.git"
+  },
+  "devDependencies": {
+    "foodoc": "latest",
+    "chai": "^4.2.0",
+    "mocha": "*",
+    "jsdoc": "*"
+  },
+  "dependencies": {
+    "ladybug-fetch": "latest"
+  },
+  "keywords": [
+    "brawl",
+    "stars",
+    "brawlstars",
+    "api",
+    "brawlapi",
+    "wrapper"
+  ],
+  "author": "PoLLeN",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pollen5/brawlstars.js/issues"
+  },
+  "homepage": "https://github.com/pollen5/brawlstars.js#readme"
+}

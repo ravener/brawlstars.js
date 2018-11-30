@@ -1,0 +1,6 @@
+node_modules
+.eslintrc.json
+.eslintignore
+jsdoc.json
+docs
+travis-deploy.sh
