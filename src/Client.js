@@ -78,7 +78,7 @@ class Client {
 
   /**
    * Returns top bands.
-   * @param {String} [limit=null] - Limit of bands to fetch, leave empty for all.
+   * @param {Number} [limit=null] - Limit of bands to fetch, leave empty for all.
    * @returns {Promise<Array<Band>>} The Top Bands
    */
   getTopBands(limit = null) {
