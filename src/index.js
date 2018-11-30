@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 module.exports = {
   Client: require("./Client.js"),
   utils: require("./utils"),
