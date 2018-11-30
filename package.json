@@ -16,7 +16,8 @@
     "chai": "^4.2.0",
     "mocha": "*",
     "jsdoc": "*",
-    "eslint": "^4.18.1"
+    "eslint": "^4.18.1",
+    "eslint-config-ladybug": "github:pollen5/eslint-config-ladybug"
   },
   "dependencies": {
     "ladybug-fetch": "latest"
