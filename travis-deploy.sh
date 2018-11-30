@@ -14,7 +14,7 @@ echo -e "Building for a branch push - building and deploying."
 REPO=$(git config remote.origin.url)
 SHA=$(git rev-parse --verify HEAD)
 
-TARGET_BRANCH="docs"
+TARGET_BRANCH="gh-pages"
 git clone $REPO out -b $TARGET_BRANCH
 
 npm run docs
