@@ -15,7 +15,8 @@
     "foodoc": "latest",
     "chai": "^4.2.0",
     "mocha": "*",
-    "jsdoc": "*"
+    "jsdoc": "*",
+    "eslint": "^4.18.1"
   },
   "dependencies": {
     "ladybug-fetch": "latest"
