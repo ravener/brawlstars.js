@@ -19,7 +19,7 @@ git clone $REPO out -b $TARGET_BRANCH
 
 npm run docs
 
-mv docs/brawlstars/*/* out
+mv docs/* out
 
 cd out
 git add --all .
