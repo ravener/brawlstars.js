@@ -1,6 +1,6 @@
 const ladybug = require("ladybug-fetch");
-const Band = require("./structures/Band");
-const Player = require("./structures/Player");
+const Club = require("./structures/Club.js");
+const Player = require("./structures/Player.js");
 const { clean, validate } = require("./utils");
 
 /**
@@ -47,14 +47,14 @@ class Client {
   }
 
   /**
-   * Gets a band by tag.
+   * Gets a club by tag.
    * @param {String} tag - The tag to request.
    * @returns {Promise<Band>} The Requested Band
    */
-  getBand(tag) {
+  getClub(tag) {
     if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
     return this._get(`bands/${clean(tag)}`)
-      .then((res) => new Band(this, res));
+      .then((res) => new Club(this, res));
   }
 
   /**
@@ -81,10 +81,10 @@ class Client {
    * @param {Number} [limit=null] - Limit of bands to fetch, leave empty for all.
    * @returns {Promise<Array<Band>>} The Top Bands
    */
-  getTopBands(limit = null) {
+  getTopClubs(limit = null) {
     if(limit && isNaN(limit)) return Promise.reject(new TypeError("Limit must be a number."));
-    return this._get(`/leaderboards/bands${limit ? `/${limit}` : ""}`)
-      .then((res) => res.bands.map((band) => new Band(this, band)));
+    return this._get(`/leaderboards/clubs${limit ? `/${limit}` : ""}`)
+      .then((res) => res.bands.map((band) => new Club(this, band)));
   }
 
   _events(type) {

@@ -1,10 +1,11 @@
 
 /**
- * Represents a Band.
+ * Represents a Club.
  * The properties are not documented for now but they follow the API's JSON body.
  * print the Band to inspect the properties.
+ * An example response can be found <a href="https://mahi-uddin.github.io/BrawlAPI/json/clubs_QCGUUYJ.json">here</a>.
  */
-class Band {
+class Club {
   constructor(client, data) {
 
     /**
@@ -30,4 +31,4 @@ class Band {
   }
 }
 
-module.exports = Band;
+module.exports = Club;

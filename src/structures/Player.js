@@ -3,6 +3,7 @@
  * Represents a player
  * The player properties are not documented for now but they follow the API's JSON.
  * print the player to inspect the properties.
+ * An example JSON response can be found <a href="https://mahi-uddin.github.io/BrawlAPI/json/players_Y2QPGG.json">here</a>.
  */
 class Player {
   constructor(client, data) {
@@ -17,10 +18,10 @@ class Player {
   }
 
   /**
-   * Gets the player's band if any, returns null if not in a band.
+   * Gets the player's club if any, returns null if not in a band.
    * @returns {Promise<?Band>}
    */
-  getBand() {
+  getClub() {
     if(!this.band || !this.band.tag) return Promise.resolve(null);
     return this.client.getBand(this.band.tag);
   }
