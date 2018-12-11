@@ -19,17 +19,19 @@ describe("Client", () => {
     const client = new BrawlStars.Client({ token });
     return expect(await client.getEndpoints()).to.be.an("array");
   });
+
   it("Should get a player", async() => {
     const client = new BrawlStars.Client({ token });
     const player = await client.getPlayer("#C2L0");
     expect(player).to.exist;
     expect(player).to.be.an.instanceof(BrawlStars.Player);
   });
-  it("Should get a band", async() => {
+
+  it("Should get a club", async() => {
     const client = new BrawlStars.Client({ token });
-    const band = await client.getBand("#LQL");
+    const band = await client.getClub("#LQL");
     expect(band).to.exist;
-    expect(band).to.be.an.instanceof(BrawlStars.Band);
+    expect(band).to.be.an.instanceof(BrawlStars.Club);
   });
 
   it("Should get the about file", async() => {
@@ -39,5 +41,6 @@ describe("Client", () => {
     expect(about).to.be.an("object");
     expect(about).to.not.be.empty;
   });
+
   // TODO more tests.
 });

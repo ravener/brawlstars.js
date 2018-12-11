@@ -4,3 +4,4 @@ node_modules
 jsdoc.json
 docs
 travis-deploy.sh
+test
