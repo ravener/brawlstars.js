@@ -2,7 +2,7 @@
 module.exports = {
   Client: require("./Client.js"),
   utils: require("./utils"),
-  Player: require("./structures/Player"),
-  Band: require("./structures/Band"),
+  Player: require("./structures/Player.js"),
+  Club: require("./structures/Club.js"),
   version: require("../package.json").version
 };
