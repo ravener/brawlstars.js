@@ -22,8 +22,8 @@ class Player {
    * @returns {Promise<?Band>}
    */
   getClub() {
-    if(!this.band || !this.band.tag) return Promise.resolve(null);
-    return this.client.getBand(this.band.tag);
+    if(!this.club || !this.club.tag) return Promise.resolve(null);
+    return this.client.getBand(this.club.tag);
   }
 
   /**
