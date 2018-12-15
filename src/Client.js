@@ -53,7 +53,7 @@ class Client {
    */
   getClub(tag) {
     if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
-    return this._get(`bands/${clean(tag)}`)
+    return this._get(`clubs/${clean(tag)}`)
       .then((res) => new Club(this, res));
   }
 

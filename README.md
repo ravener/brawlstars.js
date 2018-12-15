@@ -19,7 +19,7 @@ async function main() {
 
 main();
 ```
-Documentation can be found [here](https://brawlstars.itsladybug.ml)
+Documentation can be found [here](https://brawlstars.itsladybug.tk)
 
 ## License
 MIT
