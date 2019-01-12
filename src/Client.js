@@ -84,7 +84,7 @@ class Client {
   getTopClubs(limit = null) {
     if(limit && isNaN(limit)) return Promise.reject(new TypeError("Limit must be a number."));
     return this._get(`/leaderboards/clubs${limit ? `/${limit}` : ""}`)
-      .then((res) => res.bands.map((band) => new Club(this, band)));
+      .then((res) => res.clubs.map((club) => new Club(this, club)));
   }
 
   _events(type) {
