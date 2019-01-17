@@ -106,6 +106,14 @@ class Client {
   getCurrentEvents() {
     return this._events("current");
   }
+
+  /**
+   * Gets some misc data, such as season and shop reset time.
+   * @returns {Promise<any>}
+   */
+  getMisc() {
+    return this._get("misc");
+  }
 }
 
 module.exports = Client;
