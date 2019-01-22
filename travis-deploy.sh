@@ -21,7 +21,7 @@ rm -rf docs
 
 npm run docs
 
-mv docs/* out
+mv -f docs/* out
 
 cd out
 git add --all .
