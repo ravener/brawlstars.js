@@ -4,6 +4,14 @@ const Player = require("./structures/Player.js");
 const { clean, validate } = require("./utils");
 
 /**
+ * https://brawlapi.cf/api/events?type=current
+ * https://brawlapi.cf/api/events?type=upcoming
+ * https://brawlapi.cf/api/leaderboards/players?brawler=shelly&count=20
+ * https://brawlapi.cf/api/leaderboards/players?count=20
+ * https://brawlapi.cf/api/leaderboards/clubs?count=20
+ */
+
+/**
  * Represents a client interacting with the API.
  * @constructor
  * @param {any} [options] Optional object of options
@@ -21,8 +29,9 @@ class Client {
     Object.defineProperty(this, "token", { value: options.token });
   }
 
-  _get(endpoint) {
+  _get(endpoint, query = {}) {
     return ladybug(`https://brawlapi.cf/api/${endpoint}`)
+      .query(query)
       .set("Authorization", this.token)
       .then((res) => res.body);
   }
@@ -42,7 +51,7 @@ class Client {
    */
   getPlayer(tag) {
     if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
-    return this._get(`players/${clean(tag)}`)
+    return this._get("player", { tag: clean(tag) })
       .then((res) => new Player(this, res));
   }
 
@@ -53,7 +62,7 @@ class Client {
    */
   getClub(tag) {
     if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
-    return this._get(`clubs/${clean(tag)}`)
+    return this._get("club", { tag: clean(tag) })
       .then((res) => new Club(this, res));
   }
 
@@ -67,28 +76,37 @@ class Client {
 
   /**
    * Gets top players
-   * @param {Number} [limit=null] - Limit of players to return, leave empty for all.
+   * @param {Object} [options] - Options to custumize response.
+   * @param {String} [options.brawler] - Brawler name to filter response with.
+   * @param {Number} [options.count] - Limit the number of responses returned.
    * @returns {Promise<Array<Player>>} The Top Players
    */
-  getTopPlayers(limit = null) {
-    if(limit && isNaN(limit)) return Promise.reject(new TypeError("Limit must be a number."));
-    return this._get(`/leaderboards/players${limit ? `/${limit}` : ""}`)
-      .then((res) => res.players.map((player) => new Player(this, player)));
+  getTopPlayers({ count, brawler } = {}) {
+    if(count && isNaN(count))
+      return Promise.reject(new TypeError("Count must be a number."));
+    const query = {};
+    if(count) query["count"] = count;
+    if(brawler) query["brawler"] = brawler;
+    return this._get("/leaderboards/players", query)
+      .then((res) => res.map((player) => new Player(this, player)));
   }
 
   /**
    * Returns top bands.
-   * @param {Number} [limit=null] - Limit of bands to fetch, leave empty for all.
+   * @param {Number} [count] - Limit of bands to fetch, leave empty for all.
    * @returns {Promise<Array<Band>>} The Top Bands
    */
-  getTopClubs(limit = null) {
-    if(limit && isNaN(limit)) return Promise.reject(new TypeError("Limit must be a number."));
-    return this._get(`/leaderboards/clubs${limit ? `/${limit}` : ""}`)
-      .then((res) => res.clubs.map((club) => new Club(this, club)));
+  getTopClubs(count) {
+    if(count && isNaN(count))
+      return Promise.reject(new TypeError("Count must be a number."));
+    const query = {};
+    if(count) query["count"] = count;
+    return this._get("/leaderboards/clubs", query)
+      .then((res) => res.map((club) => new Club(this, club)));
   }
 
   _events(type) {
-    return this._get(`events${type ? `/${type}` : ""}`);
+    return this._get("events", { type });
   }
 
   /**
@@ -96,7 +114,7 @@ class Client {
    * @returns {Promise<any>} The Events Data
    */
   getUpcomingEvents() {
-    return this._events();
+    return this._events("upcoming");
   }
 
   /**
@@ -113,6 +131,16 @@ class Client {
    */
   getMisc() {
     return this._get("misc");
+  }
+
+  /**
+   * Searches clubs with a query.
+   * @param {String} query - The query to search for.
+   * @returns {Array<Club>}
+   */
+  clubSearch(query) {
+    return this._get("clubSearch", { query })
+      .then((res) => res.map((club) => new Club(this, club)));
   }
 }
 
