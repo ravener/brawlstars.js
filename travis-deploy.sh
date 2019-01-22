@@ -22,7 +22,7 @@ rm -rf docs
 npm run docs
 
 # mv -f docs/* out
-rsync -a docs out
+rsync -a docs/ out/
 
 cd out
 git add --all .
