@@ -4,14 +4,6 @@ const Player = require("./structures/Player.js");
 const { clean, validate } = require("./utils");
 
 /**
- * https://brawlapi.cf/api/events?type=current
- * https://brawlapi.cf/api/events?type=upcoming
- * https://brawlapi.cf/api/leaderboards/players?brawler=shelly&count=20
- * https://brawlapi.cf/api/leaderboards/players?count=20
- * https://brawlapi.cf/api/leaderboards/clubs?count=20
- */
-
-/**
  * Represents a client interacting with the API.
  * @constructor
  * @param {any} [options] Optional object of options
@@ -30,7 +22,7 @@ class Client {
   }
 
   _get(endpoint, query = {}) {
-    return ladybug(`https://brawlapi.cf/api/${endpoint}`)
+    return ladybug(`https://brawlapi.cf/api/v1/${endpoint}`)
       .query(query)
       .set("Authorization", this.token)
       .then((res) => res.body);
