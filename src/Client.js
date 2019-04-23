@@ -22,7 +22,7 @@ class Client {
   }
 
   _get(endpoint, query = {}) {
-    return ladybug(`https://brawlapi.cf/api/v1/${endpoint}`)
+    return ladybug(`https://api.brawlapi.cf/v1/${endpoint}`)
       .query(query)
       .set("Authorization", this.token)
       .then((res) => res.body);
