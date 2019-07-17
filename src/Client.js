@@ -52,7 +52,7 @@ class Client {
    * @param {String} tag - The tag to request.
    * @returns {Promise<any>} The Requested Battle Log
    */
-  getPlayer(tag) {
+  getBattleLog(tag) {
     if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
     return this._get("player/battlelog", { tag: clean(tag) })
   }
