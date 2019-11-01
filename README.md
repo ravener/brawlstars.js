@@ -1,5 +1,5 @@
 # BrawlStars
-Node.js API Wrapper for [BrawlAPI](https://docs.brawlapi.cf)
+Node.js API Wrapper for [BrawlAPI](https://api-docs.starlist.pro)
 
 ## Install
 ```sh
