@@ -1,7 +1,7 @@
 {
   "name": "brawlstars",
   "version": "1.2.2",
-  "description": "API Wrapper for https://brawlapi.cf",
+  "description": "API Wrapper for https://api-docs.starlist.pro",
   "main": "./src/index.js",
   "scripts": {
     "test": "eslint . && mocha --timeout 0",
