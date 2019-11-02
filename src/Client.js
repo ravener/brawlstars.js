@@ -22,7 +22,7 @@ class Client {
   }
 
   _get(endpoint, query = {}) {
-    return ladybug(`https://api.brawlapi.cf/v1/${endpoint}`)
+    return ladybug(`https://api.starlist.pro/v1/${endpoint}`)
       .query(query)
       .set("Authorization", this.token)
       .then((res) => res.body);
@@ -45,6 +45,16 @@ class Client {
     if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
     return this._get("player", { tag: clean(tag) })
       .then((res) => new Player(this, res));
+  }
+  
+   /**
+   * Gets a player's battle log by tag.
+   * @param {String} tag - The tag to request.
+   * @returns {Promise<any>} The Requested Battle Log
+   */
+  getBattleLog(tag) {
+    if(!validate(tag)) return Promise.reject(new Error("Invalid Tag."));
+    return this._get("player/battlelog", { tag: clean(tag) })
   }
 
   /**
@@ -71,14 +81,16 @@ class Client {
    * @param {Object} [options] - Options to custumize response.
    * @param {String} [options.brawler] - Brawler name to filter response with.
    * @param {Number} [options.count] - Limit the number of responses returned.
+   * @param {String} [options.region] - The region of leaderboard to return, leave empty for global.
    * @returns {Promise<Array<Player>>} The Top Players
    */
-  getTopPlayers({ count, brawler } = {}) {
+  getTopPlayers({ count, brawler, region } = {}) {
     if(count && isNaN(count))
       return Promise.reject(new TypeError("Count must be a number."));
     const query = {};
     if(count) query["count"] = count;
     if(brawler) query["brawler"] = brawler;
+    if(region) query["region"] = region;
     return this._get("/leaderboards/players", query)
       .then((res) => res.map((player) => new Player(this, player)));
   }
@@ -86,13 +98,15 @@ class Client {
   /**
    * Returns top bands.
    * @param {Number} [count] - Limit of bands to fetch, leave empty for all.
+   * @param {String} [region] - The region of leaderboard to return, leave empty for global.
    * @returns {Promise<Array<Band>>} The Top Bands
    */
-  getTopClubs(count) {
+  getTopClubs(count, region) {
     if(count && isNaN(count))
       return Promise.reject(new TypeError("Count must be a number."));
     const query = {};
     if(count) query["count"] = count;
+    if(region) query["region"] = region;
     return this._get("/leaderboards/clubs", query)
       .then((res) => res.map((club) => new Club(this, club)));
   }
