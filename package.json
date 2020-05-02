@@ -1,0 +1,35 @@
+{
+  "name": "brawlstars",
+  "version": "2.0.0",
+  "description": "API wrapper for the official Brawl Stars API",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pollen5/brawlstars.git"
+  },
+  "keywords": [
+    "brawl",
+    "stars",
+    "brawlstars",
+    "bs",
+    "api",
+    "wrapper",
+    "client",
+    "official"
+  ],
+  "author": "PoLLeN <pollen@itsladybug.ml> (https://itsladybug.ml/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pollen5/brawlstars/issues"
+  },
+  "homepage": "https://github.com/pollen5/brawlstars#readme",
+  "dependencies": {
+    "@types/node-fetch": "^2.5.7",
+    "node-cache": "^5.1.0",
+    "node-fetch": "^2.6.0"
+  }
+}
