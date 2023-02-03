@@ -38,21 +38,6 @@ All functions return a Promise. Tags are cleaned before use (Removes `#` and rep
 
 All results are cached when supercell sends `cache-control` in the response, in that case the objects are in cache until the `max-age` expires. Caching can be disabled and options can be passed to the underlying `node-cache` library.
 
-## TypeScript
-Types for responses are exposed for easy TypeScript usage and safety.
-```ts
-import { Client, Player } from "brawlstars";
-
-const client = new Client(...);
-
-client.getPlayer("TAG")
-  .then((player: Player) => {
-    // Access player fields.
-  });
-```
-## Getting Support
-Best way to contact me is through my [Discord Server](https://discord.gg/mDkMbEh). You can also open issues for bug reports or suggestions.
-
 ## License
 BrawlStars Wrapper is released under the [MIT License](LICENSE)
 
