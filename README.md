@@ -30,8 +30,8 @@ const client = new Client("TOKEN", {
 
 // Call into functions
 client.getPlayer("TAG")
-  .then((player) => console.log(player.name))
-  .catch((err) => console.error(err));
+  .then(player => console.log(player.name))
+  .catch(err => console.error(err));
 ```
 All functions return a Promise. Tags are cleaned before use (Removes `#` and replaces letter `O` with zero `0`)
 
@@ -40,4 +40,4 @@ All results are cached when supercell sends `cache-control` in the response, in 
 ## License
 BrawlStars Wrapper is released under the [MIT License](LICENSE)
 
-This is an unofficial wrapper and I do not own the name Brawl Stars in any way.
+This is an unofficial wrapper. We are not affiliated, associated, authorized, endorsed by, or in any way officially connected with Supercell, or any of its subsidiaries or its affiliates.
