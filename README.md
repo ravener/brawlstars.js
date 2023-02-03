@@ -1,12 +1,11 @@
 # Brawl Stars
-
+![GitHub repo size](https://img.shields.io/github/repo-size/ravener/brawlstars.js)
+![GitHub](https://img.shields.io/github/license/ravener/brawlstars.js)
 [![Discord](https://discordapp.com/api/guilds/397479560876261377/embed.png)](https://discord.gg/mDkMbEh)
 
 Unofficial API wrapper for the Official [Brawl Stars API](https://developer.brawlstars.com).
 
 This package implements all the API and is written in TypeScript for safety and full typings support.
-
-**Note:** This library got a major rewrite to v2 and is not backward compatible anymore, the previous version was for Starlist API which is now discontinued and so the v2 is made with TypeScript and uses the official API.
 
 ## Install
 ```sh
