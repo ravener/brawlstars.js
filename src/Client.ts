@@ -1,10 +1,12 @@
-import { Player, PlayerBattlelog, RankingsPlayer } from "./Player";
+import { Player, PlayerBattlelog, PowerPlaySeason, RankingsPlayer } from "./Player";
 import { Brawler } from "./Brawler";
 import { Club, ClubMember, RankingsClub } from "./Club";
 import Cache, { Options } from "node-cache";
-import fetch, { Response } from "node-fetch";
+import { request } from "undici";
 import { cleanTag } from "./utils";
 import { stringify } from "querystring";
+import { STATUS_CODES } from "http";
+import { ScheduledEvent } from "./Event";
 
 export interface ClientOptions {
   cache: boolean;
@@ -40,24 +42,27 @@ export class Client {
 
   private async _fetch<T>(path: string, query?: any): Promise<T> {
     const url = this.baseURL + path + (query ? "?" + stringify(query) : "");
-    const exists = this.cache?.get<T>(url);
-    if(exists) return exists;
 
-    const response = await fetch(url, {
+    const exists = this.cache?.get<T>(url);
+    if (exists) return exists;
+
+    const response = await request(url, {
       headers: {
-        "Authorization": this.authorization,
-        "User-Agent": "BrawlStars.js https://github.com/pollen5/brawlstars.js",
-        "Accept": "application/json"
+        "authorization": this.authorization,
+        "user-agent": "brawlstars.js https://github.com/ravener/brawlstars.js",
+        "accept": "application/json"
       }
     });
 
-    if(!response.ok) throw new APIError(response.statusText, response.status);
+    if (response.statusCode !== 200) {
+      throw new APIError(STATUS_CODES[response.statusCode]!, response.statusCode);
+    }
 
-    const data = await response.json();
-    const cache = response.headers.get("cache-control");
+    const data = await response.body.json();
+    const cache = response.headers["cache-control"];
     const ttl = cache && cache.startsWith("max-age=") ? parseInt(cache.slice(8)) : 0;
 
-    if(ttl) this.cache?.set(url, data, ttl);
+    if (ttl) this.cache?.set(url, data, ttl);
 
     return data;
   }
@@ -81,50 +86,79 @@ export class Client {
 
   public getPlayerRankings(country: string, { before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<RankingsPlayer[]> {
     const query: any = {};
-    if(before) query.before = before;
-    if(after) query.after = after;
-    if(limit) query.limit = limit;
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
 
     return this._fetch<RankingsPlayer[]>(`/rankings/${country}/players`, query);
   }
 
   public getClubRankings(country: string, { before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<RankingsClub[]> {
     const query: any = {};
-    if(before) query.before = before;
-    if(after) query.after = after;
-    if(limit) query.limit = limit;
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
 
     return this._fetch<RankingsClub[]>(`/rankings/${country}/clubs`, query);
   }
 
   public getBrawlerRankings(country: string, brawler: string, { before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<RankingsPlayer[]> {
     const query: any = {};
-    if(before) query.before = before;
-    if(after) query.after = after;
-    if(limit) query.limit = limit;
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
 
     return this._fetch<RankingsPlayer[]>(`/rankings/${country}/brawlers/${brawler}`, query);
   }
 
+  public getPowerPlayRankings(country: string, seasonId: string, { before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<RankingsPlayer[]> {
+    const query: any = {};
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
+
+    return this._fetch<RankingsPlayer[]>(`/rankings/${country}/powerplay/seasons/${seasonId}`, query);
+  }
+
+  public getPowerPlaySeasons(country: string, { before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<PowerPlaySeason[]> {
+    const query: any = {};
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
+
+    return this._fetch<PowerPlaySeason[]>(`/rankings/${country}/powerplay/seasons`, query);
+  }
+
   public getClubMembers(tag: string, { before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<ClubMember[]> {
     const query: any = {};
-    if(before) query.before = before;
-    if(after) query.after = after;
-    if(limit) query.limit = limit;
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
 
     return this._fetch<ClubMember[]>(`/clubs/%23${cleanTag(tag)}/members`, query);
   }
 
   public getBrawlers({ before, after, limit }: { before?: string, after?: string, limit?: number } = {}): Promise<Brawler[]> {
     const query: any = {};
-    if(before) query.before = before;
-    if(after) query.after = after;
-    if(limit) query.limit = limit;
+
+    if (before) query.before = before;
+    if (after) query.after = after;
+    if (limit) query.limit = limit;
 
     return this._fetch<Brawler[]>(`/brawlers`, query);
   }
 
   public getBrawler(id: string) {
     return this._fetch<Brawler>(`/brawlers/${id}`);
+  }
+
+  public getEvents() {
+    return this._fetch<ScheduledEvent[]>("/events/rotation");
   }
 }

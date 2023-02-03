@@ -27,11 +27,11 @@
     "url": "https://github.com/pollen5/brawlstars/issues"
   },
   "homepage": "https://github.com/pollen5/brawlstars#readme",
-  "devDependencies": {
-    "@types/node-fetch": "^2.5.7"
-  },
   "dependencies": {
-    "node-cache": "^5.1.0",
-    "node-fetch": "^2.6.0"
+    "node-cache": "^5.1.2",
+    "undici": "^5.16.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.18"
   }
 }
