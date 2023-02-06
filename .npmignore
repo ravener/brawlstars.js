@@ -1,3 +1,5 @@
 src
 tsconfig.json
 node_modules
+typedoc.json
+docs
