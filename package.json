@@ -1,6 +1,6 @@
 {
   "name": "brawlstars",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "API wrapper for the official Brawl Stars API",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
